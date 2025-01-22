@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akan Name Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>Akan Name Generator</h1>
+    <p>Find out the day of the week you were born and your Akan name based on Ghanian culture!</p>
+  </header>
+
+  <main>
+    <form id="akanForm">
+      <label for="birthday">Enter Your Birthday:</label>
+      <input type="date" id="birthday" required>
+
+      <label for="gender">Select Your Gender:</label>
+      <select id="gender" required>
+        <option value="" disabled selected>Choose Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Akan Name Generator</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
