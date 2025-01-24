@@ -1,34 +1,43 @@
-// script.js
+// Select the form and result area
+const form = document.getElementById("akanForm");
+const resultDiv = document.getElementById("result");
 
-document.getElementById("akanForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+// Add event listener to the form
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); // Prevent page refresh
 
-    // Get user input
-    const birthday = document.getElementById("birthday").value;
-    const gender = document.getElementById("gender").value;
+  // Get user inputs
+  const day = parseInt(document.getElementById("day").value);
+  const month = parseInt(document.getElementById("month").value);
+  const year = parseInt(document.getElementById("year").value);
+  const gender = document.getElementById("gender").value;
 
-    // Validate inputs
-    if (!birthday || !gender) {
-        alert("Please enter a valid date and select your gender.");
-        return;
-    }
+  // Validate inputs
+  if (!day || !month || !year || !gender) {
+    resultDiv.textContent = "Please fill in all fields.";
+    return;
+  }
+  if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2100) {
+    resultDiv.textContent = "Please enter valid day, month, and year.";
+    return;
+  }
 
-    // Parse date input
-    const date = new Date(birthday);
-    const day = date.getDay(); // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+  // Calculate the day of the week
+  const date = new Date(year, month - 1, day); // Month is 0-based
+  const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
-    // Akan names
-    const maleNames = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
-    const femaleNames = ["Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
+  // Akan names
+  const maleNames = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
+  const femaleNames = ["Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
 
-    // Get Akan name based on gender and day
-    let akanName = "";
-    if (gender === "male") {
-        akanName = maleNames[day];
-    } else if (gender === "female") {
-        akanName = femaleNames[day];
-    }
+  // Determine the Akan name
+  let akanName = "";
+  if (gender === "male") {
+    akanName = maleNames[dayOfWeek];
+  } else if (gender === "female") {
+    akanName = femaleNames[dayOfWeek];
+  }
 
-    // Display result
-    document.getElementById("result").textContent = `Your Akan name is ${akanName}. You were born on a ${date.toLocaleString('en-us', { weekday: 'long' })}.`;
+  // Display the result with the full sentence
+  resultDiv.textContent = `Your Akan name is ${akanName}.`;
 });
